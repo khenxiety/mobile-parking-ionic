@@ -1,0 +1,230 @@
+<ion-toolbar class="ion-padding-top">
+  <ion-buttons slot="primary">
+    <ion-button (click)="setOpen2(true)">
+      <ion-icon name="notifications"></ion-icon>
+    </ion-button>
+    <!-- <ion-button>
+      <ion-icon name="cog"></ion-icon>
+    </ion-button> -->
+    <ion-button routerLink="/profile">
+      <ion-icon name="person-circle"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+
+  <ion-title>Car Rental App </ion-title>
+</ion-toolbar>
+<ion-toolbar>
+  <ion-searchbar></ion-searchbar>
+</ion-toolbar>
+
+<ion-content [fullscreen]="true">
+  <div class="card" *ngFor="let i of test">
+    <div class="image-header">
+      <img src="{{i.img}}" height="100%" width="100%" alt="">
+    </div>
+    <div class="text-content">
+      <div class="text-content-header">
+        <div class="left">
+          <ion-avatar slot="start" style="height: 40px; width: 40px">
+            <img
+              src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200"
+            />
+          </ion-avatar>
+          <h5>{{i.username}}</h5>
+        </div>
+        <div class="right">
+          <small>{{i.date}}</small>
+        </div>
+      </div>
+      <div class="desciption">
+        <ion-badge color="light">{{i.type}}</ion-badge>
+        <p>
+          {{i.description}}
+          <br>
+        <small>{{i.location}}</small>
+
+        </p>
+
+      </div>
+    </div>
+
+    <div class="footer" >
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-badge color="light" >Php {{i.price}}.00/1km</ion-badge>
+              
+            </ion-col>
+          <ion-col>
+            <ion-button *ngIf="currentUser.role!='owner'" class="book-button" expand="block" (click)="toRent(i.id)"
+
+              ><ion-icon name="book" style="margin-right: .5em;"></ion-icon>Book</ion-button>
+          </ion-col>
+          
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+
+  
+  <ion-fab  *ngIf="currentUser.role=='owner'" vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button  (click)="setOpen(true)">
+      <ion-icon name="add-circle"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+
+
+  <ion-modal [isOpen]="isModalOpen">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Add Car</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="setOpen(false)">Close</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content style="--background:white;">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+             
+              <ion-item>
+                <ion-label position="floating"  >Enter Model</ion-label>
+                <ion-input name="carmodel" [(ngModel)]="carmodel"></ion-input>
+              </ion-item>
+                
+              
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+             
+              <ion-item>
+                <ion-label position="floating">Enter Price</ion-label>
+                <ion-input name="price" [(ngModel)]="price"></ion-input>
+              </ion-item>
+                
+              
+            </ion-col>
+          </ion-row>
+          <!-- <ion-row>
+            <ion-col>
+             
+              <ion-item>
+                
+                <ion-button class="book-button" expand="full" (click)="f.click()">
+                  <ion-icon lazy="true" slot="start" name="image"></ion-icon>
+                  <ion-label slot="end">Car Image</ion-label>
+                </ion-button>
+                  <input class="ion-hide" #f type="file"  id="file-input"
+                    accept="image/png, image/jpeg">
+              </ion-item>
+                
+              
+            </ion-col>
+          </ion-row> -->
+          <ion-row>
+            <ion-col>
+             
+              <ion-item>
+                <ion-label position="floating">Enter Car Image Url</ion-label>
+                <ion-textarea name="imgurl" [(ngModel)]="imgurl" placeholder="Enter more description here..."></ion-textarea>                
+
+              </ion-item>
+                
+              
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+             
+              <ion-item>
+                <ion-select name="type" [(ngModel)]="cartype" placeholder="Select Vehicel Type">
+                  <ion-select-option value="car">Car</ion-select-option>
+                  <ion-select-option value="van">Van</ion-select-option>
+                  <ion-select-option value="jeep">Jeep</ion-select-option>
+                  
+                </ion-select>
+              </ion-item>
+                
+              
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+             
+              <ion-item>
+                <ion-textarea name="description" [(ngModel)]="description" placeholder="Enter more description here..."></ion-textarea>                
+              </ion-item>
+                
+              
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+             
+              <ion-button (click)="addCar()" class="book-button" expand="block">Post Car</ion-button>
+                
+              
+            </ion-col>
+          </ion-row>
+
+        </ion-grid>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+<!-- notification -->
+  <ion-modal [isOpen]="isModalOpen2">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Notifications</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="setOpen2(false)">Close</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content style="--background:white;">
+        <ion-list>
+          <ion-item *ngFor="let notif of notifications">
+            
+
+            <ion-label style="text-transform: capitalize;">
+              <h2 >{{notif.status}} Request</h2>
+              <ul style="list-style: none; padding: 0;">
+                <li>Request By: {{notif.bookername}} <span *ngIf="notif.bookerid==currentUser.uid">(You)</span> </li>
+
+                <li>Total Hours: {{notif.hours}}</li>
+                <li>Total Price: {{notif.price}}</li>
+
+                <li>Request Date: {{notif.date}}</li>
+                <br>
+                <li  *ngIf="currentUser.role=='owner'">
+                  <ion-buttons>
+                    <ion-button (click)="transactionAction(notif,'rejected')">Reject</ion-button>
+                    <ion-button (click)="transactionAction(notif,'accepted')" style="--background:var(--ion-color-purple)">Accept</ion-button>
+      
+                  </ion-buttons>
+                </li>
+                <li style="list-style: none;" *ngIf="currentUser.role=='customer' && notif.status!='accepted'">
+                  <ion-buttons>
+                    <ion-button (click)="cancel(notif.id)" style="--background:var(--ion-color-purple)">Cancel</ion-button>
+      
+                  </ion-buttons>
+                </li>
+              </ul>
+            </ion-label>
+          
+
+            
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+
+</ion-content>

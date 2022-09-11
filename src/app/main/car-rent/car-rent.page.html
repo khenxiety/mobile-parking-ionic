@@ -1,0 +1,79 @@
+<ion-toolbar>
+  <ion-buttons slot="start">
+    <ion-back-button defaultHref="car-feed"></ion-back-button>
+  </ion-buttons>
+  <ion-title>Car Rental</ion-title>
+</ion-toolbar>
+
+
+
+<ion-content [fullscreen]="true" class="ion-content-main"  *ngFor="let i of data">
+
+
+  <div class="card">
+    <div class="image-header">
+      <div class="image-header">
+        <img src="https://www.stratstone.com/-/media/stratstone/porsche/new-cars/inline-images/taycan/porsche-taycan-rear-driving-720x405px.ashx?mh=1440&la=en&h=405&w=720&mw=2560&hash=BC569C94BDA5FDD37E5587C7F313AFBC" height="100%" width="100%" alt="">
+      </div>
+    </div>
+
+    <div class="text-content">
+      <div class="text-content-header">
+        <div class="left">
+          <ion-avatar slot="start" style="height: 40px; width: 40px">
+            <img
+              src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200"
+            />
+          </ion-avatar>
+          <h5>{{i.username}}</h5>
+        </div>
+        
+      </div>
+      <div class="desciption">
+        <ion-badge color="light">{{i.type}}</ion-badge>
+        <p>
+          {{i.description}}
+          <br>
+        <small>{{i.location}}</small>
+
+        </p>
+
+        <ion-badge color="light">Php {{i.price}}.00/1hr</ion-badge>
+      </div>
+
+      <div class="counter">
+        <h5>How many hours?</h5>
+
+
+        <div class="counter-input">
+          <ion-button type="button" (click)="decrement(i.price)">-</ion-button>
+          <ion-input type="number"  [(ngModel)]="count" disabled="" min="1"></ion-input>
+
+          <ion-button type="button" (click)="increment(i.price)">+</ion-button>
+          
+
+        </div>
+
+      </div>
+    </div>
+
+
+
+  </div>
+
+  <div class="booking ion-padding">
+    <div class="right">
+      <span><h3 style="margin: 0;">Php {{total}}.00</h3> <small>/1hour</small> </span>
+
+
+    </div>
+    <div class="right">
+      <ion-button (click)="bookCar(i.ownerid)" class="book-button" >
+        <ion-icon name="book" style="margin-right: .5em;"></ion-icon>Book Now
+      </ion-button>
+    </div>
+
+
+  </div>
+
+</ion-content>

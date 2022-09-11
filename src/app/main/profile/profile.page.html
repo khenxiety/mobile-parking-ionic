@@ -1,0 +1,71 @@
+<ion-toolbar>
+  <ion-buttons class="ion-no-border" slot="start">
+    <ion-back-button defaultHref="car-feed"></ion-back-button>
+  </ion-buttons>
+  <ion-title>Profile</ion-title>
+</ion-toolbar>
+
+
+<ion-content [fullscreen]="true">
+  <header>
+    <div class="img-container">
+      <ion-avatar style="height: auto; width:40%;">
+        <img
+          src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200"
+        />
+      </ion-avatar>
+    </div>
+    
+    <div class="background">
+    </div>
+
+    
+    <div class="header-text">
+      <h1>{{profile.fullname}}</h1>
+      <p>@{{profile.username}}</p>
+    </div>
+
+  </header>
+    <ion-list >
+      <ion-item>
+        <ion-icon  slot="start" name="mail"></ion-icon>
+        <ion-label color="dark">{{profile.email}}</ion-label>
+  
+      </ion-item>
+      <ion-item>
+        <ion-icon slot="start" name="navigate-circle"></ion-icon>
+        <ion-label color="dark">{{profile.location}}</ion-label>
+  
+      </ion-item>
+      <ion-item>
+        <ion-icon slot="start" name="person-circle"></ion-icon>
+        <ion-label color="dark" style="text-transform: capitalize;">{{profile.role}}</ion-label>
+  
+      </ion-item>
+    </ion-list>
+
+
+    <ion-title>Settings</ion-title>
+
+    <ion-list>
+      <ion-item (click)="updatePassword()"> 
+        <ion-icon slot="start" name="key"></ion-icon>
+        <ion-label color="dark">Reset Password</ion-label>
+      </ion-item>
+      <ion-item (click)="signOut()">
+        <ion-icon slot="start" name="log-out"></ion-icon>
+
+        <ion-label color="danger">Log out</ion-label>
+      </ion-item>
+
+    </ion-list>
+  
+
+
+  
+
+  
+
+
+
+</ion-content>

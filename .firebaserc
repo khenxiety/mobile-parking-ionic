@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "car-rental-d05db"
+  },
+  "targets": {
+    "car-rental-d05db": {
+      "hosting": {
+        "app": [
+          "car-rental-d05db"
+        ]
+      }
+    }
+  }
+}
